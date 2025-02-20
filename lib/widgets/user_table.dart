@@ -12,15 +12,15 @@ class UserTable extends StatefulWidget {
 }
 
 class _UserTableState extends State<UserTable> {
-  Set<String> expandedUsers = {}; // Para armazenar os IDs dos usuários que estão expandidos
+  Set<String> expandedUsers = {}; // IDs dos usuários expandidos
 
-  // Função para alternar o estado de expansão
+  // Alternar expansão de detalhes
   void _toggleExpand(String userId) {
     setState(() {
       if (expandedUsers.contains(userId)) {
-        expandedUsers.remove(userId); // Se estiver expandido, fecha
+        expandedUsers.remove(userId);
       } else {
-        expandedUsers.add(userId); // Se não estiver expandido, abre
+        expandedUsers.add(userId);
       }
     });
   }
@@ -30,18 +30,22 @@ class _UserTableState extends State<UserTable> {
     return Card(
       margin: const EdgeInsets.all(10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 5,
       child: Column(
         children: [
-          // Cabeçalho da Tabela com fundo cinza
+          // Cabeçalho da Tabela
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-            color: Colors.grey.shade300, // Cor de fundo cinza
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.blueGrey[100],
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text("Foto", style: TextStyle(fontWeight: FontWeight.bold)),
-                Text("Nome", style: TextStyle(fontWeight: FontWeight.bold)),
-                Icon(Icons.circle, size: 18), // Alterado para um ponto simples
+              children: [
+                Expanded(flex: 1, child: Text("Foto", style: _headerStyle)),
+                Expanded(flex: 3, child: Text("Nome", style: _headerStyle)),
+                const Icon(Icons.more_vert, color: Colors.black54),
               ],
             ),
           ),
@@ -50,13 +54,14 @@ class _UserTableState extends State<UserTable> {
           if (widget.users.isEmpty)
             const Padding(
               padding: EdgeInsets.all(20),
-              child: Text("Nenhum usuário encontrado"),
+              child: Text("Nenhum usuário encontrado", style: TextStyle(fontSize: 16)),
             )
           else
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.5,
-              child: ListView.builder(
+              child: ListView.separated(
                 itemCount: widget.users.length,
+                separatorBuilder: (context, index) => Divider(height: 1, color: Colors.black26),
                 itemBuilder: (context, index) {
                   UserModel user = widget.users[index];
                   bool isExpanded = expandedUsers.contains(user.id);
@@ -67,42 +72,29 @@ class _UserTableState extends State<UserTable> {
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(user.image),
                         ),
-                        title: Row(
-                          children: [
-                            Expanded(
-                              child: Text(user.name),
-                            ),
-                          ],
-                        ),
+                        title: Text(user.name, style: TextStyle(fontSize: 16)),
                         trailing: IconButton(
                           icon: Icon(
                             isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                            color: Colors.blue, // Cor da seta para azul
+                            color: const Color.fromARGB(255, 78, 69, 100),
                           ),
                           onPressed: () => _toggleExpand(user.id),
                         ),
                       ),
 
-                      // Detalhes do usuário (aparecem abaixo do nome ao clicar)
+                      // Detalhes do usuário (expandidos ao clicar)
                       if (isExpanded)
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                          color: Colors.grey.shade100,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Cargo: ${user.job}", style: TextStyle(fontSize: 16)),
-                                      Text("Data de Admissão: ${user.admissionDate}", style: TextStyle(fontSize: 16)),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                              Text("Cargo: ${user.job}", style: TextStyle(fontSize: 16)),
+                              Text("Data de Admissão: ${user.admissionDate}", style: TextStyle(fontSize: 16)),
                             ],
                           ),
                         ),
@@ -115,4 +107,6 @@ class _UserTableState extends State<UserTable> {
       ),
     );
   }
+
+  TextStyle get _headerStyle => const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87);
 }

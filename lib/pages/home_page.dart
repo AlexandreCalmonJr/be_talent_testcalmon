@@ -49,9 +49,10 @@ class _HomePageState extends State<HomePage> {
     List<UserModel> results = users.where((user) {
       final nameMatch = user.name.toLowerCase().contains(query);
       final jobMatch = user.job.toLowerCase().contains(query);
-      final dateMatch = user.admissionDate.contains(query); // Garante que a data seja pesquisável
+      final dateMatch = user.admissionDate.toString().contains(query);
+      // Garante que a data seja pesquisável
 
-      return nameMatch || jobMatch || dateMatch;
+      return nameMatch || jobMatch || dateMatch || user.phone.contains(query);
     }).toList();
 
     setState(() {

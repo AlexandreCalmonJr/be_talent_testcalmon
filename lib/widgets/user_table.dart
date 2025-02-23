@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../models/user_model.dart';
 
@@ -25,6 +26,9 @@ class _UserTableState extends State<UserTable> {
     });
   }
 
+  TextStyle get _headerStyle => const TextStyle(
+      fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -38,7 +42,8 @@ class _UserTableState extends State<UserTable> {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             decoration: BoxDecoration(
               color: Colors.blueGrey[100],
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(20)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,17 +59,23 @@ class _UserTableState extends State<UserTable> {
           if (widget.users.isEmpty)
             const Padding(
               padding: EdgeInsets.all(20),
-              child: Text("Nenhum usuário encontrado", style: TextStyle(fontSize: 16)),
+              child: Text("Nenhum usuário encontrado",
+                  style: TextStyle(fontSize: 16)),
             )
           else
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.5,
               child: ListView.separated(
                 itemCount: widget.users.length,
-                separatorBuilder: (context, index) => Divider(height: 1, color: Colors.black26),
+                separatorBuilder: (context, index) =>
+                    const Divider(height: 1, color: Colors.black26),
                 itemBuilder: (context, index) {
                   UserModel user = widget.users[index];
                   bool isExpanded = expandedUsers.contains(user.id);
+
+                  final DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+                  final String formattedDate =
+                      dateFormat.format(user.admissionDate);
 
                   return Column(
                     children: [
@@ -72,10 +83,13 @@ class _UserTableState extends State<UserTable> {
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(user.image),
                         ),
-                        title: Text(user.name, style: TextStyle(fontSize: 16)),
+                        title: Text(user.name,
+                            style: const TextStyle(fontSize: 16)),
                         trailing: IconButton(
                           icon: Icon(
-                            isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                            isExpanded
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
                             color: const Color.fromARGB(255, 78, 69, 100),
                           ),
                           onPressed: () => _toggleExpand(user.id),
@@ -85,7 +99,8 @@ class _UserTableState extends State<UserTable> {
                       // Detalhes do usuário (expandidos ao clicar)
                       if (isExpanded)
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.grey.shade100,
                             borderRadius: BorderRadius.circular(10),
@@ -93,8 +108,11 @@ class _UserTableState extends State<UserTable> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Cargo: ${user.job}", style: TextStyle(fontSize: 16)),
-                              Text("Data de Admissão: ${user.admissionDate}", style: TextStyle(fontSize: 16)),
+                              Text("Cargo: ${user.job}",
+                                  style: const TextStyle(fontSize: 16)),
+                              Text("Data de Admissão: $formattedDate",
+                                  style: const TextStyle(fontSize: 16)),
+                             Text("Telefone: ${user.phone}", style: const TextStyle(fontSize: 16)),                              
                             ],
                           ),
                         ),
@@ -107,6 +125,4 @@ class _UserTableState extends State<UserTable> {
       ),
     );
   }
-
-  TextStyle get _headerStyle => const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87);
 }

@@ -13,9 +13,9 @@ class HeaderTable extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Expanded(
+          Expanded(
             flex: 2,
-            child: Text("Foto", style: TextStyle(fontWeight: FontWeight.bold)),
+            child: const Text("Foto", style: TextStyle(fontWeight: FontWeight.bold)),
           ),
           Expanded(
             flex: 6,

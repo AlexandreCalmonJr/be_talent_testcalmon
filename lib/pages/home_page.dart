@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 238, 238, 238),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           const HeaderSection(),

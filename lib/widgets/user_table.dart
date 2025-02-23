@@ -27,30 +27,48 @@ class _UserTableState extends State<UserTable> {
   }
 
   TextStyle get _headerStyle => const TextStyle(
-      fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87);
+      fontFamily: 'Helvetica Neue',
+      fontWeight: FontWeight.w500,
+      fontSize: 16,
+      height: 1.22, // line-height / font-size = 19.54 / 16
+      letterSpacing: 0,
+      color: Colors.black87);
+
+  TextStyle get _contentStyle => const TextStyle(
+      fontFamily: 'Helvetica Neue',
+      fontWeight: FontWeight.w500,
+      fontSize: 16,
+      height: 1.22, // line-height / font-size = 19.54 / 16
+      letterSpacing: 0,
+      color: Colors.black87);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(10),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: const Color.fromARGB(255, 248, 245, 245), width: 1),
+      ),
       elevation: 5,
       child: Column(
         children: [
           // Cabeçalho da Tabela
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            padding: const EdgeInsets.only(top: 14, left: 16, right: 16, bottom: 14),
             decoration: BoxDecoration(
-              color: Colors.blueGrey[100],
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(20)),
+              color: const Color(0xFFEDEFFB),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(flex: 1, child: Text("Foto", style: _headerStyle)),
                 Expanded(flex: 3, child: Text("Nome", style: _headerStyle)),
-                const Icon(Icons.more_vert, color: Colors.black54),
+                const Icon(Icons.circle, color: Colors.black54),
               ],
             ),
           ),
@@ -83,8 +101,7 @@ class _UserTableState extends State<UserTable> {
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(user.image),
                         ),
-                        title: Text(user.name,
-                            style: const TextStyle(fontSize: 16)),
+                        title: Text(user.name, style: _contentStyle),
                         trailing: IconButton(
                           icon: Icon(
                             isExpanded
@@ -108,11 +125,9 @@ class _UserTableState extends State<UserTable> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Cargo: ${user.job}",
-                                  style: const TextStyle(fontSize: 16)),
-                              Text("Data de Admissão: $formattedDate",
-                                  style: const TextStyle(fontSize: 16)),
-                             Text("Telefone: ${user.phone}", style: const TextStyle(fontSize: 16)),                              
+                              Text("Cargo: ${user.job}", style: _contentStyle),
+                              Text("Data de Admissão: $formattedDate", style: _contentStyle),
+                              Text("Telefone: ${user.phone}", style: _contentStyle),
                             ],
                           ),
                         ),

@@ -13,6 +13,13 @@ class SearchBarWidget extends StatelessWidget {
         onChanged: onSearch, // Chama a função de pesquisa passada pelo HomePage
         decoration: InputDecoration(
           hintText: "Pesquisar",
+          hintStyle: const TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontWeight: FontWeight.w400,
+            fontSize: 16,
+            height: 1.19, // line-height / font-size = 19.09 / 16
+            letterSpacing: 0,
+          ),
           prefixIcon: const Icon(Icons.search, color: Colors.grey),
           suffixIcon: IconButton(
             icon: const Icon(Icons.clear, color: Colors.grey),
@@ -26,6 +33,13 @@ class SearchBarWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
             borderSide: BorderSide.none,
           ),
+        ),
+        style: const TextStyle(
+          fontFamily: 'Helvetica Neue',
+          fontWeight: FontWeight.w400,
+          fontSize: 16,
+          height: 1.19, // line-height / font-size = 19.09 / 16
+          letterSpacing: 0,
         ),
       ),
     );

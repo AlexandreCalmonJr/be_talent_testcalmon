@@ -16,7 +16,7 @@ class HeaderSection extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: const BoxDecoration(
-              color: Color(0xFF1C1C1C),
+              color: Color(0xFFF5F5F5),
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,

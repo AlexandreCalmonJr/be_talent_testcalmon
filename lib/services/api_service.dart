@@ -1,6 +1,5 @@
+import 'package:be_talent_test/models/user_model.dart';
 import 'package:dio/dio.dart';
-
-import '../models/user_model.dart';
 
 class ApiService {
   final Dio _dio = Dio(
@@ -13,19 +12,23 @@ class ApiService {
 
   Future<List<UserModel>> fetchUsers() async {
     try {
-      final response = await _dio.get("/employees"); 
+      final response = await _dio.get("/employees");
 
       if (response.statusCode == 200) {
         return (response.data as List).map((user) {
           return UserModel(
             id: user['id'] ?? 'ID não disponível',
             name: user['name'] ?? 'Nome não disponível',
-            phone: UserModel.formatPhone(user['phone'] ?? ''), // Aplica a formatação de telefone
+            phone: UserModel.formatPhone(
+                user['phone'] ?? ''), // Aplica a formatação de telefone
             job: user['job'] ?? 'Cargo não informado',
             admissionDate: user['admission_date'] != null
-                ? DateTime.tryParse(user['admission_date']) ?? DateTime.now() // Converte e evita erro de parsing
+                ? DateTime.tryParse(user['admission_date']) ??
+                    DateTime.now() // Converte e evita erro de parsing
                 : DateTime.now(),
-            image: (user['image']?.isNotEmpty == true) ? user['image'] : "https://via.placeholder.com/150",
+            image: (user['image']?.isNotEmpty == true)
+                ? user['image']
+                : "https://via.placeholder.com/150",
           );
         }).toList();
       } else {

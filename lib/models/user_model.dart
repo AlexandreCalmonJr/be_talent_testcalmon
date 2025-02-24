@@ -38,8 +38,11 @@ class UserModel {
       admissionDate: json['admission_date'] != null
           ? DateTime.tryParse(json['admission_date']) ?? DateTime.now()
           : DateTime.now(),
-      phone: formatPhone(json['phone'] ?? ''), // Aplica a formatação ao criar o modelo
-      image: json['image']?.isNotEmpty == true ? json['image'] : "https://via.placeholder.com/150",
+      phone: formatPhone(
+          json['phone'] ?? ''), // Aplica a formatação ao criar o modelo
+      image: json['image']?.isNotEmpty == true
+          ? json['image']
+          : "https://via.placeholder.com/150",
     );
   }
 }

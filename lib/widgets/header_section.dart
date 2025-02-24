@@ -22,7 +22,9 @@ class HeaderSection extends StatelessWidget {
             alignment: Alignment.center,
             child: const Text(
               "CG",
-              style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 0, 0, 0)),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 0, 0, 0)),
             ),
           ),
           const SizedBox(width: 10),

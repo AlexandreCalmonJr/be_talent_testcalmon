@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:be_talent_test/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -11,7 +10,8 @@ class SplashScreen extends StatefulWidget {
   SplashScreenState createState() => SplashScreenState();
 }
 
-class SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   double _opacity = 0.0;
 
   @override
@@ -33,14 +33,17 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const HomePage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
               return FadeTransition(
                 opacity: animation,
                 child: child,
               );
             },
-            transitionDuration: const Duration(milliseconds: 300), // ease-in, 300ms
+            transitionDuration:
+                const Duration(milliseconds: 300), // ease-in, 300ms
           ),
         );
       }
@@ -54,9 +57,11 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
       body: Center(
         child: AnimatedOpacity(
           opacity: _opacity,
-          duration: const Duration(milliseconds: 300), // Duração da animação (300ms)
+          duration:
+              const Duration(milliseconds: 300), // Duração da animação (300ms)
           curve: Curves.easeIn, // Suavização (ease-in)
-          child: Image.asset('assets/images/logo.png'), // Verifique se o caminho está correto
+          child: Image.asset(
+              'assets/images/logo.png'), // Verifique se o caminho está correto
         ),
       ),
     );

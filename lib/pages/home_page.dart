@@ -1,10 +1,9 @@
+import 'package:be_talent_test/models/user_model.dart';
+import 'package:be_talent_test/services/api_service.dart';
+import 'package:be_talent_test/widgets/header_section.dart';
+import 'package:be_talent_test/widgets/search_bar.dart';
+import 'package:be_talent_test/widgets/user_table.dart';
 import 'package:flutter/material.dart';
-
-import '../models/user_model.dart';
-import '../services/api_service.dart';
-import '../widgets/header_section.dart';
-import '../widgets/search_bar.dart';
-import '../widgets/user_table.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,7 +27,8 @@ class _HomePageState extends State<HomePage> {
   // Função para carregar usuários da API
   Future<void> _loadUsers() async {
     try {
-      List<UserModel> fetchedUsers = await ApiService().fetchUsers(); // Chama a API
+      List<UserModel> fetchedUsers =
+          await ApiService().fetchUsers(); // Chama a API
       setState(() {
         users = fetchedUsers;
         filteredUsers = fetchedUsers; // Inicializa com todos os usuários
@@ -90,10 +90,15 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: isLoading
-                  ? const Center(child: CircularProgressIndicator()) // Indicador de carregamento
+                  ? const Center(
+                      child:
+                          CircularProgressIndicator()) // Indicador de carregamento
                   : errorMessage.isNotEmpty
-                      ? Center(child: Text(errorMessage, style: TextStyle(color: Colors.red)))
-                      : UserTable(users: filteredUsers), // Exibe os dados filtrados
+                      ? Center(
+                          child: Text(errorMessage,
+                              style: TextStyle(color: Colors.red)))
+                      : UserTable(
+                          users: filteredUsers), // Exibe os dados filtrados
             ),
           ),
         ],

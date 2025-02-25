@@ -47,7 +47,7 @@ class _UserTableState extends State<UserTable> {
               children: [
                 // Cabeçalho fixo
                 const TableHeader(),
-                
+
                 // Conteúdo flexível
                 Flexible(
                   child: Container(

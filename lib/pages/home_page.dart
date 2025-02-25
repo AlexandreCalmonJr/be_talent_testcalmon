@@ -1,10 +1,13 @@
+import 'package:be_talent_test/bloc/user_bloc.dart';
+import 'package:be_talent_test/bloc/user_event.dart';
+import 'package:be_talent_test/bloc/user_state.dart';
 import 'package:be_talent_test/models/user_model.dart';
-import 'package:be_talent_test/services/api_service.dart';
 import 'package:be_talent_test/utils/styles.dart';
 import 'package:be_talent_test/widgets/header_section.dart';
 import 'package:be_talent_test/widgets/search_bar.dart';
 import 'package:be_talent_test/widgets/user_table.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,45 +17,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<UserModel> users = []; // Lista de usuários
-  List<UserModel> filteredUsers = []; // Lista filtrada
-  bool isLoading = true; // Para exibir o carregamento
-  String errorMessage = ""; // Para exibir erros
+  List<UserModel> filteredUsers = [];
 
   @override
   void initState() {
     super.initState();
-    _loadUsers();
-  }
-
-  // Função para carregar usuários da API
-  Future<void> _loadUsers() async {
-    try {
-      List<UserModel> fetchedUsers =
-          await ApiService().fetchUsers(); // Chama a API
-      setState(() {
-        users = fetchedUsers;
-        filteredUsers = fetchedUsers; // Inicializa com todos os usuários
-        isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        errorMessage = "Erro ao carregar usuários: $e";
-        isLoading = false;
-      });
-    }
+    context.read<UserBloc>().add(FetchUsers());
   }
 
   // Função para filtrar usuários
-  void _filterUsers(String query) {
+  void _filterUsers(String query, List<UserModel> users) {
     query = query.toLowerCase().trim();
 
     List<UserModel> results = users.where((user) {
       final jobMatch = user.job.toLowerCase().contains(query);
       final dateMatch = user.admissionDate.toString().contains(query);
-      // Garante que a data seja pesquisável
-
-      return  jobMatch || dateMatch || user.phone.contains(query);
+      return jobMatch || dateMatch || user.phone.contains(query);
     }).toList();
 
     setState(() {
@@ -68,38 +48,45 @@ class _HomePageState extends State<HomePage> {
         children: [
           const HeaderSection(),
           const SizedBox(height: 10),
-
-          // Título "Funcionários"
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Funcionários",
-                style: titleStyle, // Aplicar o estilo titleStyle
+                style: titleStyle,
               ),
             ),
           ),
-
-          // Barra de Pesquisa
-          SearchBarWidget(
-            onSearch: _filterUsers, // Passando a função de filtragem
-          ),
-
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: isLoading
-                  ? const Center(
-                      child:
-                          CircularProgressIndicator()) // Indicador de carregamento
-                  : errorMessage.isNotEmpty
-                      ? Center(
-                          child: Text(errorMessage,
-                              style: contentStyle))
-                      : UserTable(
-                          users: filteredUsers), // Exibe os dados filtrados
-            ),
+          BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              if (state is UserLoading) {
+                return const Expanded(
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              } else if (state is UserError) {
+                return Expanded(
+                  child: Center(child: Text(state.message, style: contentStyle)),
+                );
+              } else if (state is UserLoaded) {
+                return Expanded(
+                  child: Column(
+                    children: [
+                      SearchBarWidget(
+                        onSearch: (query) => _filterUsers(query, state.users),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: UserTable(users: filteredUsers.isNotEmpty ? filteredUsers : state.users),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
         ],
       ),

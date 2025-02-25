@@ -35,7 +35,7 @@ class UserModel {
       id: json['id'] ?? 'ID não disponível',
       name: json['name'] ?? 'Nome não disponível',
       job: json['job'] ?? 'Cargo não informado',
-      admissionDate: json['admission_date'] != null
+      admissionDate: json['admission_date'] != null && json['admission_date'].isNotEmpty
           ? DateTime.tryParse(json['admission_date']) ?? DateTime.now()
           : DateTime.now(),
       phone: formatPhone(

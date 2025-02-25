@@ -1,3 +1,4 @@
+import 'package:be_talent_test/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -30,13 +31,8 @@ class SearchBarWidget extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
         ),
-        style: const TextStyle(
-          fontFamily: 'Helvetica Neue',
-          fontWeight: FontWeight.w400,
-          fontSize: 16,
-          height: 1.19, // line-height / font-size = 19.09 / 16
-          letterSpacing: 0,
-        ),
+       style: headerStyle
+          ,
       ),
     );
   }

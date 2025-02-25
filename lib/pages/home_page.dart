@@ -48,12 +48,11 @@ class _HomePageState extends State<HomePage> {
     query = query.toLowerCase().trim();
 
     List<UserModel> results = users.where((user) {
-      final nameMatch = user.name.toLowerCase().contains(query);
       final jobMatch = user.job.toLowerCase().contains(query);
       final dateMatch = user.admissionDate.toString().contains(query);
       // Garante que a data seja pesquisável
 
-      return nameMatch || jobMatch || dateMatch || user.phone.contains(query);
+      return  jobMatch || dateMatch || user.phone.contains(query);
     }).toList();
 
     setState(() {
@@ -97,10 +96,7 @@ class _HomePageState extends State<HomePage> {
                   : errorMessage.isNotEmpty
                       ? Center(
                           child: Text(errorMessage,
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontFamily: 'Helvetica Neue', // Aplicar a fonte
-                              )))
+                              style: contentStyle))
                       : UserTable(
                           users: filteredUsers), // Exibe os dados filtrados
             ),

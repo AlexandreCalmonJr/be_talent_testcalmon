@@ -41,12 +41,7 @@ class HeaderSection extends StatelessWidget {
                 ),
                 child: const Text(
                   "2",
-                  style: TextStyle(
-                    fontFamily: 'Helvetica Neue', // Aplicar a fonte
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                    color: Colors.white,
-                  ),
+                  style: headerStyle,
                 ),
               ),
             ],

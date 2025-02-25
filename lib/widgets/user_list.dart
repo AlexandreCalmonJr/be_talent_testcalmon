@@ -16,27 +16,26 @@ class UserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: ListView.separated(
-        itemCount: users.length,
-        separatorBuilder: (context, index) =>
-            const Divider(height: 1, color: Colors.black26),
-        itemBuilder: (context, index) {
-          UserModel user = users[index];
-          bool isExpanded = expandedUsers.contains(user.id);
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: users.length,
+      separatorBuilder: (context, index) =>
+          const Divider(height: 1, color: Colors.black26),
+      itemBuilder: (context, index) {
+        UserModel user = users[index];
+        bool isExpanded = expandedUsers.contains(user.id);
 
-          return Column(
-            children: [
-              UserTile(
-                  user: user,
-                  isExpanded: isExpanded,
-                  toggleExpand: toggleExpand),
-              if (isExpanded) UserDetails(user: user),
-            ],
-          );
-        },
-      ),
+        return Column(
+          children: [
+            UserTile(
+                user: user,
+                isExpanded: isExpanded,
+                toggleExpand: toggleExpand),
+            if (isExpanded) UserDetails(user: user),
+          ],
+        );
+      },
     );
   }
 }

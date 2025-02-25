@@ -33,24 +33,52 @@ class _UserTableState extends State<UserTable> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: const BorderSide(
-            color: Color.fromARGB(255, 248, 245, 245), width: 1),
+          color: Color.fromARGB(255, 248, 245, 245),
+          width: 1,
+        ),
       ),
       elevation: 5,
-      child: Column(
-        children: [
-          const TableHeader(),
-          if (widget.users.isEmpty)
-            const Padding(
-              padding: EdgeInsets.all(20),
-              child: Text("Nenhum usuário encontrado",
-                  style: TextStyle(fontSize: 16)),
-            )
-          else
-            UserList(
-                users: widget.users,
-                expandedUsers: expandedUsers,
-                toggleExpand: _toggleExpand),
-        ],
+      color: const Color(0xFFFFFFFF),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return IntrinsicHeight(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Cabeçalho fixo
+                const TableHeader(),
+                
+                // Conteúdo flexível
+                Flexible(
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: 50,
+                      maxHeight: MediaQuery.of(context).size.height * 0.6,
+                    ),
+                    child: widget.users.isEmpty
+                        ? const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(20),
+                              child: Text(
+                                "Nenhum usuário encontrado",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          )
+                        : SingleChildScrollView(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            child: UserList(
+                              users: widget.users,
+                              expandedUsers: expandedUsers,
+                              toggleExpand: _toggleExpand,
+                            ),
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

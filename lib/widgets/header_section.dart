@@ -1,3 +1,4 @@
+import 'package:be_talent_test/utils/styles.dart'; // Importe o arquivo styles.dart
 import 'package:flutter/material.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -22,9 +23,7 @@ class HeaderSection extends StatelessWidget {
             alignment: Alignment.center,
             child: const Text(
               "CG",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 0, 0, 0)),
+              style: headerStyle, // Aplicar o estilo headerStyle
             ),
           ),
           const SizedBox(width: 10),
@@ -36,13 +35,18 @@ class HeaderSection extends StatelessWidget {
               const Icon(Icons.notifications_none, size: 28),
               Container(
                 padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.blue,
                   shape: BoxShape.circle,
                 ),
                 child: const Text(
                   "2",
-                  style: TextStyle(fontSize: 12, color: Colors.white),
+                  style: TextStyle(
+                    fontFamily: 'Helvetica Neue', // Aplicar a fonte
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],

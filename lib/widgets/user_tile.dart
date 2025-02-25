@@ -21,7 +21,7 @@ class UserTile extends StatelessWidget {
       trailing: IconButton(
         icon: Icon(
             isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-            color: const Color.fromARGB(255, 78, 69, 100)),
+            color: const Color.fromARGB(255, 26, 1, 247)),
         onPressed: () => toggleExpand(user.id),
       ),
     );

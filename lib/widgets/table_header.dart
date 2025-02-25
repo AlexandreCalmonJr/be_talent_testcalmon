@@ -18,7 +18,7 @@ class TableHeader extends StatelessWidget {
         children: const [
           Expanded(flex: 1, child: Text("Foto", style: headerStyle)),
           Expanded(flex: 3, child: Text("Nome", style: headerStyle)),
-          Icon(Icons.circle, color: Colors.black54),
+          Icon(Icons.circle, color: Colors.black, size: 8,),
         ],
       ),
     );

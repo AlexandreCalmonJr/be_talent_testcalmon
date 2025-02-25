@@ -1,5 +1,6 @@
 import 'package:be_talent_test/models/user_model.dart';
 import 'package:be_talent_test/services/api_service.dart';
+import 'package:be_talent_test/utils/styles.dart';
 import 'package:be_talent_test/widgets/header_section.dart';
 import 'package:be_talent_test/widgets/search_bar.dart';
 import 'package:be_talent_test/widgets/user_table.dart';
@@ -76,7 +77,7 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.centerLeft,
               child: Text(
                 "Funcionários",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: titleStyle, // Aplicar o estilo titleStyle
               ),
             ),
           ),
@@ -96,7 +97,10 @@ class _HomePageState extends State<HomePage> {
                   : errorMessage.isNotEmpty
                       ? Center(
                           child: Text(errorMessage,
-                              style: TextStyle(color: Colors.red)))
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontFamily: 'Helvetica Neue', // Aplicar a fonte
+                              )))
                       : UserTable(
                           users: filteredUsers), // Exibe os dados filtrados
             ),

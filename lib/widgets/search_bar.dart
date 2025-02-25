@@ -21,11 +21,7 @@ class SearchBarWidget extends StatelessWidget {
             letterSpacing: 0,
           ),
           prefixIcon: const Icon(Icons.search, color: Colors.grey),
-          suffixIcon: IconButton(
-            icon: const Icon(Icons.clear, color: Colors.grey),
-            onPressed: () {
-              onSearch(""); // Limpa a pesquisa ao clicar no botão
-            },
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15
           ),
           filled: true,
           fillColor: const Color(0xFFF5F5F5),

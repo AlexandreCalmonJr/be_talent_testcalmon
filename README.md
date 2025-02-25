@@ -72,8 +72,7 @@ npm install -g json-server
 ```
 
 ### 4. Iniciar o Servidor JSON
-Para simular a API, use o json-server para servir o arquivo database.json. Certifique-se de estar dentro da pasta do projeto:
-
+Para simular a API, use o `json-server` para servir o arquivo `database.json`. Certifique-se de estar dentro da pasta do projeto:
 
 ```bash
 cd be_talent_testcalmon
@@ -102,7 +101,37 @@ flutter run
 
 Isso compilará o aplicativo e o abrirá no dispositivo/emulador selecionado.
 
-### 7. Testar as Funcionalidades
+### Método Alternativo: Usando o Script `Tabela_Funcionarios`
+
+Para facilitar o processo de iniciar o `json-server` e executar a aplicação Flutter, você pode usar o script `Tabela_Funcionarios`.
+
+#### 1. Criar o Script
+
+Crie um arquivo chamado `Tabela_Funcionarios.bat` na raiz do seu projeto com o seguinte conteúdo:
+
+```batch
+@echo off
+REM Inicia o json-server em um novo terminal
+start cmd /k "json-server --watch database.json --port 3000"
+
+REM Aguarda 5 segundos para garantir que o json-server esteja em execução
+timeout /t 5 /nobreak
+
+REM Executa o aplicativo Flutter
+flutter run
+```
+
+#### 2. Executar o Script
+
+No terminal, dentro da pasta do projeto, rode:
+
+```bash
+Tabela_Funcionarios.bat
+```
+
+Isso iniciará o `json-server` e, em seguida, executará o aplicativo Flutter automaticamente.
+
+### . Testar as Funcionalidades
 
 - Navegue pela tabela de funcionários.
 - Use a barra de pesquisa para filtrar por nome.
@@ -113,5 +142,5 @@ Isso compilará o aplicativo e o abrirá no dispositivo/emulador selecionado.
 ## Dicas Adicionais
 
 - **Debugging:** Use `flutter run --debug` para rodar em modo de depuração e inspecionar erros.
-- **API Simulada:** Como os dados são mockados, não é necessário configurar um servidor externo. Verifique o código (provavelmente em `lib/services` ou similar) para entender como os dados são gerados.
+- **API Simulada:** Como os dados são mockados, não é necessário configurar um servidor externo. Verifique o código no BLoC para entender como os dados são gerados.
 - **Customização:** Se quiser alterar o design ou adicionar mais dados, explore os arquivos em `lib/` (como `main.dart` e os widgets da tabela).

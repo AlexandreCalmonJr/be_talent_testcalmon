@@ -49,30 +49,33 @@ class _UserTableState extends State<UserTable> {
                 const TableHeader(),
 
                 // Conteúdo flexível
-                Flexible(
-                  child: Container(
-                    constraints: BoxConstraints(
-                      minHeight: 50,
-                      maxHeight: MediaQuery.of(context).size.height * 0.6,
-                    ),
-                    child: widget.users.isEmpty
-                        ? const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(20),
-                              child: Text(
-                                "Nenhum usuário encontrado",
-                                style: TextStyle(fontSize: 16),
+                Expanded(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(),
+                    child: Container(
+                      constraints: BoxConstraints(
+                        minHeight: 50,
+                        maxHeight: MediaQuery.of(context).size.height * 0.6,
+                      ),
+                      child: widget.users.isEmpty
+                          ? const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(20),
+                                child: Text(
+                                  "Nenhum usuário encontrado",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            )
+                          : SingleChildScrollView(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              child: UserList(
+                                users: widget.users,
+                                expandedUsers: expandedUsers,
+                                toggleExpand: _toggleExpand,
                               ),
                             ),
-                          )
-                        : SingleChildScrollView(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            child: UserList(
-                              users: widget.users,
-                              expandedUsers: expandedUsers,
-                              toggleExpand: _toggleExpand,
-                            ),
-                          ),
+                    ),
                   ),
                 ),
               ],

@@ -61,7 +61,7 @@ class SplashScreenState extends State<SplashScreen>
               const Duration(milliseconds: 300), // Duração da animação (300ms)
           curve: Curves.easeIn, // Suavização (ease-in)
           child: Image.asset(
-              'assets/images/logo.png'), // Verifique se o caminho está correto
+              'assets/images/logo.png'), 
         ),
       ),
     );

@@ -13,16 +13,16 @@ const TextStyle contentStyle = TextStyle(
   fontFamily: 'Helvetica Neue',
   fontWeight: FontWeight.w400,
   fontSize: 16,
-  height: 19.09 / 16, // Altura da linha em relação ao tamanho da fonte
+  height: 19.09 / 16, 
   color: Colors.black87,
-  letterSpacing: 0, // Espaçamento entre letras
+  letterSpacing: 0, 
 );
 
 const TextStyle titleStyle = TextStyle(
   fontFamily: 'Helvetica Neue',
   fontWeight: FontWeight.w700,
   fontSize: 20,
-  height: 23.81 / 20, // Altura da linha em relação ao tamanho da fonte
+  height: 23.81 / 20, 
   color: Colors.black87,
-  letterSpacing: 0, // Espaçamento entre letras
+  letterSpacing: 0, 
 );

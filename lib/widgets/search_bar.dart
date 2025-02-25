@@ -18,7 +18,7 @@ class SearchBarWidget extends StatelessWidget {
             fontFamily: 'Helvetica Neue',
             fontWeight: FontWeight.w400,
             fontSize: 16,
-            height: 1.19, // line-height / font-size = 19.09 / 16
+            height: 1.19, 
             letterSpacing: 0,
           ),
           prefixIcon: const Icon(Icons.search, color: Colors.grey),
